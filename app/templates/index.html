@@ -1,0 +1,84 @@
+{% load pwa %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	{% progressive_web_app_meta %}
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="icon" href="{% static 'images/logo.ico'%}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/signinup.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+	<link rel="manifest" href="{% static 'manifest.json' %}">
+	{% block css %}{% endblock %}
+</head>
+<body style='background-image: url("{% static 'images/bg.jpg' %}");'>
+	<div id="load">
+		<div id="box-rl">
+			<div id="upper"></div>
+			<div id="lower"></div>
+		</div>
+		<div id="box-ru">
+			<div style="margin-bottom: 10px;"></div>
+			<div style="margin-bottom: 10px;"></div>
+			<div></div>
+		</div>
+		<div id="box-lu">
+			<div></div>
+		</div>
+		<div id="box-ll">
+			<div class="slant"></div>
+			<div class="rev-slant" style="position: relative; top: -50px; left: 13px;"></div>
+			<div class="slant" style="position: relative; top: -102px; left: 25px;"></div>
+			<div class="rev-slant move-right" style="position: relative; top: -153px; left: 35px;"></div>
+		</div>
+	</div>
+	<div class="container-fluid">
+	    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 1.5px solid #000;">
+	        <a class="navbar-brand" href="#">
+				<img src="{% static 'images/logo.png' %}" width="100" height="100" alt="Logo">
+			</a>
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="navbar-toggler-icon"></span>
+	        </button>
+	        <div id="main-navbar" class="navbar-collapse collapse">
+	            <ul class="navbar-nav mr-auto"></ul>
+	            <ul class="navbar-nav ml-auto">
+	            	<li class="nav-item">
+				        <div class="btn-group">
+						<button type="button" class="btn btn-grey dropdown-toggle nav-drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </button>
+						<div class="dropdown-menu" style="padding-left: 20px; margin-left: -25px;">
+							{% for category in categories %}
+							<span class="dropdown-item category">{{ category|title }}</span>
+							{% endfor %}
+						</div>
+						</div>
+				    </li>
+	            	<li class="nav-item {% if url == 'home' %}active{% endif %}">
+				        <a class="nav-link {% if url == 'home' %}active{% endif %}" href="{% url "home" %}">Home</a>
+				    </li>
+				    <li class="nav-item {% if url == 'account' %}active{% endif %}">
+				        <a class="nav-link {% if url == 'account' %}active{% endif %}" href="{% url "account" %}">Account</a>
+				    </li>
+				    <li class="nav-item {% if url == 'saved' %}active{% endif %}">
+				        <a class="nav-link {% if url == 'saved' %}active{% endif %}" href="{% url "saved" %}">Saved</a>
+				    </li>
+				    <li class="nav-item">
+				        <a class="nav-link" href="{% url "logout" %}">Logout {{ user.profile.name|title }}</a>
+				    </li>
+	            </ul>
+	        </div>
+	    </nav>
+	</div><br><br>
+	{% block content%}{% endblock %}
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/signinup.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/load.js' %}"></script>
+	{% block js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,8 @@
+*.pyc
+/Lib/
+/.idea/
+/Scripts/
+/tcl/
+/Include/
+config.ini
+sample_news.txt

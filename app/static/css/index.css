@@ -1,0 +1,48 @@
+.navbar {
+	opacity: 1;
+}
+tr {
+	border-bottom: 20px solid transparent;
+}
+td {
+	border-left: 10px solid transparent;
+}
+input {
+	padding: 10px;
+}
+.btn-grey {
+	margin-right: 15px;
+	margin-left: 20px;
+	padding-right: 0px;
+	padding-left: 20px;
+	background-color: #fff;
+	font-size: 1.2em;
+}
+.btn-grey-l {
+	border-left: 2px solid transparent;
+}
+.btn-grey-r {
+	border-right: 2px solid transparent;	
+}
+.dropdown-toggle::after {
+	border:none;
+}
+.nav-drop {
+	margin-left: -20px!important;
+}
+.card-deck {
+	display: flex;
+	justify-content: flex-start;
+	flex-flow: row wrap; 
+	align-items: stretch;
+}
+.card-deck .card {
+	display: block;
+  	flex-basis: 25%;
+}
+.card {
+	margin-bottom: 20px!important;
+}
+.category:hover {
+	cursor: pointer;
+}

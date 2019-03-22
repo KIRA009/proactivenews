@@ -1,0 +1,59 @@
+{% extends 'signinup.html' %}
+{% load static %}
+{% block title %}
+  Register
+{% endblock %}
+{% block content%}
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+          <label for="api-key">API KEY</label>
+          <input type="text" class="form-control" id="api-key" placeholder="Enter api-key" name="api-key" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+        <label for="name">Username</label>
+        <input type="text" class="form-control" id="name" placeholder="Username" name="username">
+        <small id="check-username" class="form-text">Check Username</small>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+        <small id="show-password" class="form-text">Show Password</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <div id="error"></div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+  $('button[type="submit"]').click(function(e) {
+    $this = $(this);
+    $(this).html('Registering....');
+    $(this).attr('disabled', 'disabled');
+    e.preventDefault();
+    $.ajax({
+      url: '{% url "register" %}',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        'api_key': $('#api-key').val(),
+        'name': $('#name').val(),
+        'password': $('#password').val(),
+        'csrfmiddlewaretoken': '{{ csrf_token }}'
+      },
+    })
+    .done(function(data) {
+      if (data.status == "failure") {
+        $this.html('Submit');
+        $this.removeAttr('disabled');
+        alert(data.error);
+      }
+      else {
+        $this.html('Redirecting...');
+        window.location = "{% url 'login' %}"
+      }
+  });
+  });
+  
+</script>
+{% endblock %}

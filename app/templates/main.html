@@ -1,0 +1,55 @@
+{% load pwa %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% progressive_web_app_meta %}
+  <title>PAN | ProActiveNews</title>
+  <link rel="icon" href="{% static 'images/logo.ico'%}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/signinup.css' %}">
+  <link rel="manifest" href="{% static 'manifest.json' %}">
+</head>
+<body style='background-image: url("{% static 'images/bg.jpg' %}");'>
+  <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 1.5px solid #000;">
+          <a class="navbar-brand" href="#">
+        <img src="{% static 'images/logo.png' %}" width="100" height="100" alt="Logo">
+      </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div id="main-navbar" class="navbar-collapse collapse">
+              <ul class="navbar-nav mr-auto"></ul>
+              <ul class="navbar-nav ml-auto">
+                {% block items %}
+                  <li class="nav-item {% if url == 'login' %}active{% endif %}">
+                      <a class="nav-link {% if url == 'login' %}active{% endif %}" href="{% url "login" %}">Login</a>
+                  </li>
+                  <li class="nav-item {% if url == 'register' %}active{% endif %}">
+                      <a class="nav-link {% if url == 'register' %}active{% endif %}" href="{% url "register" %}">Sign Up</a>
+                  </li>
+                  {% endblock %}
+              </ul>
+          </div>
+      </nav>
+  </div><br><br>
+  <div class="container-fluid">
+    <div class="row welcome-text text-center">
+      <div class="col-12">
+        <h5 class="card-title">Welcome to ProActiveNews</h5>
+        <h6 class="card-text">Your personal ad free news site</h6>
+        <p class="card-text">To start using the site, register on newsapi.org and get your api key </p>
+        <a href="https://newsapi.org/register" class="show-more btn" target="_blank">Don't have api key?<br> Go to newsapi.org </a><br><br>
+        <a href="{% url 'register' %}" class="save btn">Already have an api key? <br>Register on our site</a>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/signinup.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{% extends 'signinup.html' %}
+{% load static %}
+{% block title %}
+	Login
+{% endblock %}
+{% block content%}
+	<form method="post">
+		{% csrf_token %}
+		<div class="form-group">
+	  		<label for="name">Username</label>
+		    <input type="text" class="form-control" id="name" placeholder="Enter username" name="name">
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" class="form-control" id="password" placeholder="Password" name="password">
+			<small id="show-password" class="form-text">Show Password</small>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+	$('button[type="submit"]').click(function(e) {
+		$this = $(this);
+	    $(this).html('Authenticating....');
+	    $(this).attr('disabled', 'disabled');
+		e.preventDefault();
+		$.ajax({
+			url: '{% url "login" %}',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				'name': $('#name').val(),
+				'password': $('#password').val(),
+				'csrfmiddlewaretoken': '{{ csrf_token }}'
+			},
+		})
+		.done(function(data) {
+			if (data.status == "failure") {
+				$this.html('Submit');
+        		$this.removeAttr('disabled');
+				alert(data.error);
+			}
+			else {
+				$this.html('Redirecting...');
+				if (data.url == 'account')
+					window.location = "{% url 'account' %}"
+				else
+					window.location = "{% url 'home' %}"
+			}
+		})
+	});
+	
+</script>
+{% endblock %}
